@@ -1,0 +1,44 @@
+<mat-card class="filter-card">
+  <mat-card-content >
+    <mat-form-field class="filter-form-fields no-hint" *ngIf="projects$ | async as projects">
+      <mat-label>Project</mat-label>
+      <mat-select [(value)]="selectedProject" (selectionChange)="applyFilter()">
+        <mat-option *ngFor="let project of projects.content" [value]="project"> {{project.projectName}} </mat-option>
+      </mat-select>
+      <button mat-icon-button matIconSuffix *ngIf="selectedProject.id" (click)="removeFilter(selectedProject)">
+        <mat-icon class="cancel-icon">cancel</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="filter-form-fields no-hint" *ngIf="priorityLevels$ | async as priorityLevels">
+      <mat-label>Priority Level</mat-label>
+      <mat-select [(value)]="selectedLevel" (selectionChange)="applyFilter()">
+        <mat-option *ngFor="let level of priorityLevels" [value]="level"> {{level.priorityLevel}} </mat-option>
+      </mat-select>
+      <button mat-icon-button matIconSuffix *ngIf="selectedLevel.id" (click)="removeFilter(selectedLevel)">
+        <mat-icon class="cancel-icon">cancel</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class="filter-form-fields no-hint" *ngIf="ticketStatus$ | async as status">
+      <mat-label>Ticket Status</mat-label>
+      <mat-select [(value)]="selectedStatus" (selectionChange)="applyFilter()">
+        <mat-option *ngFor="let stat of status" [value]="stat"> {{stat.status}} </mat-option>
+      </mat-select>
+      <button mat-icon-button matIconSuffix *ngIf="selectedStatus.id" (click)="selectedStatus = {}">
+        <mat-icon class="cancel-icon">cancel</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class="filter-form-fields no-hint" *ngIf="ticketTypes$ | async as types">
+      <mat-label>Ticket Types</mat-label>
+      <mat-select [(value)]="selectedType" (selectionChange)="applyFilter()">
+        <mat-option *ngFor="let type of types" [value]="type"> {{type.ticketType}} </mat-option>
+      </mat-select>
+      <button mat-icon-button matIconSuffix *ngIf="selectedType.id" (click)="selectedType = {}">
+        <mat-icon  class="cancel-icon">cancel</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-icon-button *ngIf="this.selectedLevel.id || this.selectedStatus.id || this.selectedType.id" (click)="clearFilters()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>

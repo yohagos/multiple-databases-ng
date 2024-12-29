@@ -1,0 +1,24 @@
+@if (!showingDetail) {
+<div class="ticket-container">
+  <app-filter-tickets></app-filter-tickets>
+
+    <div class="container" *ngIf="filteredTickets$ | async as tickets" >
+      <div class="ticket-grid">
+        <mat-card class="ticket-card glass-card" *ngFor="let item of tickets" (click)="openTicketOverview(item)">
+          <div class="card-content">
+            <h3>{{ item.ticketName }}</h3>
+            <p>{{ item.project?.projectName }}</p>
+            <p>{{ item.project?.customerName }}</p>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+</div>
+}
+<router-outlet *ngIf="showingDetail"></router-outlet>
+
+<mat-toolbar class="ticket-menu" *ngIf="checkTicketRoute()">
+  <button mat-raised-button class="create-ticket-btn" (click)="createTicketButton()">
+    Create Ticket
+  </button>
+</mat-toolbar>

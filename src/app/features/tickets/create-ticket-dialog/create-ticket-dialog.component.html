@@ -1,0 +1,96 @@
+<div class="container">
+  <div>
+    <h2 matDialogTitle>
+      Create new Ticket
+    </h2>
+  </div>
+
+  <mat-dialog-content>
+    <form [formGroup]="createTicketForm">
+      <mat-form-field class="creat-form-fields">
+        <mat-label>Ticket Name</mat-label>
+        <input matInput formControlName="ticketName">
+      </mat-form-field>
+      <mat-form-field *ngIf="projects$ | async as projects" class="creat-form-fields">
+        <mat-label>Project</mat-label>
+        <mat-select formControlName="project">
+          <mat-option *ngFor="let item of projects.content" [value]="item">
+            {{item.projectName}} - {{item.customerName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="creat-form-fields">
+        <mat-label>Ticket Description</mat-label>
+        <textarea matInput cols="10" rows="10" formControlName="ticketDescription">
+        </textarea>
+      </mat-form-field>
+      <div class="markdown-field" *ngIf="markdownData.length > 0">
+        <label >Description Preview</label>
+        <div class="markdown-content">
+          <markdown [data]="markdownData"></markdown>
+        </div>
+      </div>
+      <div class="gemini-field" *ngIf="createTicketForm.get('project')?.value && createTicketForm.get('ticketName')?.value">
+        <div class="gemini">
+          <svg class="svg-icon" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path d="M16 8.016A8.522 8.522 0 008.016 16h-.032A8.521 8.521 0 000 8.016v-.032A8.521 8.521 0 007.984 0h.032A8.522 8.522 0 0016 7.984v.032z" fill="url(#prefix__paint0_radial_980_20147)"/>
+            <defs>
+              <radialGradient id="prefix__paint0_radial_980_20147" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(16.1326 5.4553 -43.70045 129.2322 1.588 6.503)">
+                <stop offset=".067" stop-color="#9168C0"/>
+                <stop offset=".343" stop-color="#5684D1"/>
+                <stop offset=".672" stop-color="#1BA1E3"/>
+              </radialGradient>
+            </defs>
+          </svg>
+          <button class="gemini-btn" (click)="askGemini()">
+            Get Help from Gemini
+          </button>
+        </div>
+      </div>
+
+      <mat-form-field *ngIf="ticketStatus$ | async as ticketStatus" class="creat-form-fields">
+        <mat-label>Ticket Status</mat-label>
+        <mat-select formControlName="ticketStatus">
+          <mat-option *ngFor="let item of ticketStatus" [value]="item">
+            {{ item.status }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="ticketTypes$ | async as ticketTypes" class="creat-form-fields">
+        <mat-label>Ticket Type</mat-label>
+        <mat-select formControlName="ticketType">
+          <mat-option *ngFor="let item of ticketTypes" [value]="item">
+            {{ item.ticketType }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="priorityLevels$ | async as priorityLevels" class="creat-form-fields">
+        <mat-label>Priority Level</mat-label>
+        <mat-select formControlName="priorityLevel">
+          <mat-option *ngFor="let level of priorityLevels" [value]="level">
+            {{level.priorityLevel}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="timespan" *ngIf="createTicketForm.get('project')?.value">
+        <p>
+          Project Start & End Dates : {{formatingDateService.getFormatedDate(createTicketForm.get('project')?.value?.projectStartDate)}} - {{formatingDateService.getFormatedDate(createTicketForm.get('project')?.value?.projectEndDate)}}
+        </p>
+      </div>
+      <mat-form-field class="creat-form-fields">
+        <mat-label>Due Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dueDate">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button *ngIf="createTicketForm.touched && createTicketForm.valid" (click)="submitForm()">
+      Create
+    </button>
+    <button mat-flat-button (click)="cancel()" mat-dialog-close>
+      Cancel
+    </button>
+  </mat-dialog-actions>
+</div>
