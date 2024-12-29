@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin: calc(10% / 2);
+}
+
+mat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 22em;
+  min-width: 18em;
+  max-height: 30em;
+  min-height: 25em;
+  padding: 2em;
+  margin: 1em;
+}
+
+mat-card:hover {
+  cursor: pointer;
+}
+
+mat-card-header {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+mat-card-header h3 {
+  font-size: 1.5em;
+  margin: auto;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+mat-card-content .mat-icon {
+  font-size: 72px;
+  height: auto;
+  width: 100%;
+  margin: 0.5em 0.5em ;
+  align-items: center;
+}
+
+mat-card-content .description {
+  font-size: 1em;
+}
+
+mat-card:hover {
+  transform: translateY(-7px);
+  transition: transform ease-in-out 0.2s;
+}
+
+.markdown-field {
+  background-color: lightsalmon;
+}
