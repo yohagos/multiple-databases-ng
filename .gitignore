@@ -45,3 +45,4 @@ openapi
 .vscode
 
 src/environments
+src/app/services
