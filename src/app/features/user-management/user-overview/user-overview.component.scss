@@ -1,0 +1,76 @@
+
+
+.empty-user {
+  display: flex;
+  justify-content: center;
+  margin: 35vh auto;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.user-container {
+  margin: 1em;
+}
+
+.card-header {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+}
+
+.accordion {
+  margin: 1em;
+}
+
+.edit-form-fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1em auto;
+  width: 80%;
+}
+
+.auto-add-control {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 1em auto;
+  width: 80%;
+
+  .auto-input-form {
+    width: 100%;
+    align-items: center;
+  }
+
+  .auto-check-icon {
+    margin-left: 0.5em;
+  }
+}
+
+.add-icon {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.stepper-btn {
+  margin: auto 0.5em;
+  float: right;
+}
+
+.chips {
+  mat-chip {
+    display: flex;
+    padding: 0.5em;
+  }
+  margin: 1em;
+}
+
+.delete-user {
+  margin: 1.5em auto;
+  float: right;
+
+  .delete-user-btn {
+    color: rgb(5, 173, 5);
+  }
+}

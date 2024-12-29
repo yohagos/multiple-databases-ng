@@ -1,0 +1,30 @@
+<div class="dialog-container">
+  <h2 mat-dialog-title>Create a new User</h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="createUserForm">
+      <mat-form-field class="formfields" *ngFor="let control of createUserForm.controls | keyvalue">
+        <mat-label> {{control.key  | formatingTexts}} </mat-label>
+        <input matInput [id]="control.key"
+                formControlName="{{control.key}}"
+                [type]="getInputType(control.key)"
+                >
+        <button mat-icon-button matIconSuffix
+            *ngIf="control.key === 'password'"
+            (click)="hidePassword = !hidePassword">
+          <mat-icon> {{hidePassword ? 'visibility_off' : 'visibility'}} </mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-flat-button (click)="submitCreateUser()" [disabled]="!createUserForm.valid" >
+      Submit
+    </button>
+    <button mat-flat-button (click)="clearCreateUserForm()"  mat-dialog-close>
+      Cancel
+    </button>
+  </mat-dialog-actions>
+
+</div>

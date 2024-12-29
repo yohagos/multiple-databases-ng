@@ -1,0 +1,152 @@
+<div class="user-container" *ngIf="(currentUser$ | async) as currentUser">
+  <mat-card>
+    <mat-card-header class="card-header">
+      <mat-card-title>User Information of {{currentUser.firstName}} {{currentUser.lastName}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-accordion class="accordion" [formGroup]="userForm">
+        <mat-expansion-panel [expanded]="step() === 0" (opened)="setStep(0)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Personal information
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngIf="!editModeUser">
+            <div class="chips">
+              Fullname <mat-chip> {{currentUser.firstName}} {{currentUser.lastName}} </mat-chip>
+            </div>
+            <div class="chips">
+              Username <mat-chip> {{currentUser.username}} </mat-chip>
+            </div>
+          </div>
+
+          <div *ngIf="editModeUser">
+            <mat-form-field>
+              <mat-label>Firstname</mat-label>
+              <input matInput formControlName="firstName">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Lastname</mat-label>
+              <input matInput formControlName="lastName">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Username | Email </mat-label>
+              <input matInput formControlName="username">
+            </mat-form-field>
+          </div>
+
+          <button mat-button class="stepper-btn" (click)="nextStep()">
+            Next
+          </button>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step() === 1" (opened)="setStep(1)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Group information
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <button mat-icon-button *ngIf="!editModeGroups" (click)="editGroupInfos()">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button *ngIf="editModeGroups" (click)="saveGroupEdit()">
+            <mat-icon>save</mat-icon>
+          </button>
+
+          <div *ngIf="!editModeGroups">
+            <mat-list *ngIf="currentUser.groups && currentUser.groups.length && currentUser.groups.length > 0">
+              <mat-list-item *ngFor="let group of currentUser.groups">
+                <div *ngIf="group && group.name">
+                  <span matListItemTitle> Name </span>
+                  <span matListItemLine> {{group.name | formatingTexts}} </span>
+                </div>
+              </mat-list-item>
+            </mat-list>
+          </div>
+
+          <div *ngIf="editModeGroups" formArrayName="groups">
+            <div *ngFor="let item of groupsArray.controls; let i = index">
+              <div [formGroupName]="i">
+                <mat-form-field class="edit-form-fields">
+                  <mat-label>Name</mat-label>
+                  <input matInput formControlName="name">
+                  <button mat-icon-button matIconSuffix (click)="removeGroupFromArray(i)">
+                    <mat-icon>
+                      delete
+                    </mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+            </div>
+            <div *ngIf="activateAutocomplete" class="auto-add-control">
+              <mat-form-field class="auto-input-form">
+                <mat-label>Select group</mat-label>
+                <input matInput [formControl]="addGroupControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                  @for (option of filteredGroupOptions | async; track $index) {
+                    <mat-option [value]="option"> {{option.name || '' | formatingTexts}} </mat-option>
+                  }
+                </mat-autocomplete>
+                <button mat-icon-button matIconSuffix *ngIf="addGroupControl.value" (click)="cancelSelectedGroup()">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-form-field>
+              <button mat-icon-button *ngIf="addGroupControl.value" class="auto-check-icon" (click)="assignGroup()" >
+                <mat-icon>check</mat-icon>
+              </button>
+            </div>
+            <button mat-icon-button class="add-icon" (click)="activateAutocomplete = true">
+              <mat-icon>
+                add
+              </mat-icon>
+            </button>
+          </div>
+
+
+          <button mat-button class="stepper-btn" (click)="nextStep()">
+            Next
+          </button>
+          <button mat-button class="stepper-btn" (click)="prevStep()">
+            Previous
+          </button>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step() === 2" (opened)="setStep(2)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Roles information
+            </mat-panel-title>
+            <mat-panel-description>
+              Inherited Roles through Groups
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-list *ngIf="currentUser.roles">
+            <mat-list-item *ngFor="let role of currentUser.roles">
+              <span matListItemTitle> Name </span>
+              <span matListItemLine> {{role | formatingTexts}} </span>
+            </mat-list-item>
+          </mat-list>
+
+          <button mat-button class="stepper-btn" (click)="prevStep()">
+            Previous
+          </button>
+          <button mat-button class="stepper-btn" (click)="nextStep()">
+            End
+          </button>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+    <div class="delete-user">
+      <button mat-button class="delete-user-btn" (click)="removeUserById()">
+        Delete User
+      </button>
+    </div>
+  </mat-card>
+</div>
+
+
+<!--
+<button mat-raised-button (click)="testButton()"> TEST BUTTON </button>
+-->

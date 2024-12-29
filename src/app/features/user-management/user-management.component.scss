@@ -1,0 +1,77 @@
+
+.container {
+  display: flex;
+  height: 91vh;
+}
+
+.leftSection {
+  flex: 5;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.rightSection {
+  flex: 10;
+  overflow: auto;
+}
+
+.scrollable-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.user-btn {
+  width: 90%;
+  position: relative;
+  border-radius: 10px;
+  background-color: rgba(35, 105, 255, 0.685) !important;
+  color: white !important;
+  margin: auto;
+  padding: 2em;
+}
+
+.create-btn {
+  position: sticky;
+  bottom: 0;
+  margin: auto ;
+  margin-top: 0.7em;
+  background-color: rgba($color: rgba(62, 119, 243, 0.719), $alpha: 0.7);
+  width: 90%;
+  height: 3em;
+  border-radius: 10px;
+  color: white;
+  z-index: 10;
+  &.mat-mdc-outlined-button:not(:disabled) {
+    color: white;
+  }
+}
+
+.user-btn::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  background-image: linear-gradient(to bottom left, rgb(23, 218, 143), rgb(51, 22, 180) );
+  z-index: -1;
+}
+
+.user-btn:hover {
+  _background-color: rgba($color: rgba(18, 37, 209, 0.719), $alpha: 0.7) ;
+  box-shadow: 2px 2px 2px  rgb(22, 102, 71), -2px 2px 2px rgb(51, 22, 180);
+  transform: translateY(-2px);
+  transition: transform ease-in-out 0.25s, box-shadow ease-in-out 0.35s;
+}
+
+.btn-title {
+  font-size: 18px;
+}
+
+.tab-container {
+  display: flex;
+  flex-direction: column;
+}
+

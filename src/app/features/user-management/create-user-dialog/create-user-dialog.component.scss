@@ -1,0 +1,18 @@
+
+.formfields {
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  _margin: 2em;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}

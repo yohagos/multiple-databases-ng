@@ -1,0 +1,23 @@
+<div class="container">
+  <section class="leftSection">
+    <div class="scrollable-list">
+      <mat-list role="list">
+        <ng-container *ngFor="let user of (users$ | async); let i = index">
+          <button mat-raised-button class="user-btn"
+                (click)="selectUser(user)">
+            <span class="btn-title">{{ user.lastName }}, {{ user.firstName }}</span>
+            <br>
+            <span class="btn-sub-title">{{ user.email }}</span>
+          </button>
+        </ng-container>
+      </mat-list>
+    </div>
+    <button mat-stroked-button class="user-btn create-btn" (click)="createUserDialog()">
+      Create User
+    </button>
+  </section>
+  <section class="rightSection">
+       <app-user-overview></app-user-overview>
+  </section>
+</div>
+
