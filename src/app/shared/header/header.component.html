@@ -1,0 +1,22 @@
+<div class="toolbar">
+  <mat-toolbar>
+    @if (menuItems && menuItems.length > 0) {
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let item of menuItems" [routerLink]="item.routerLink" routerLinkActive="active">
+          <mat-icon *ngIf="item.icon"> {{item.icon}} </mat-icon>
+          <span> {{item.label}} </span>
+        </button>
+      </mat-menu>
+    }
+    <!-- <button class="palette" mat-icon-button (click)="switchTheme()">
+      <mat-icon>palette</mat-icon>
+    </button> -->
+    <button class="logout" mat-icon-button (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+</div>
+

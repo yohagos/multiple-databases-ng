@@ -1,0 +1,12 @@
+@use 'styles';
+
+mat-toolbar {
+  height: 7vh;
+  width: 100%;
+}
+
+mat-toolbar  .logout {
+  margin: auto;
+  margin-right: 1%;
+}
+
