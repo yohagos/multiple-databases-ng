@@ -1,0 +1,59 @@
+@use 'styles.scss';
+
+.filter-bar {
+  padding: 10px;
+  overflow: auto;
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr ;
+  gap: 40px;
+  width: 90%;
+  padding: 1em;
+  _overflow: auto;
+}
+
+
+.database-chart-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2em;
+  width: 100%;
+}
+
+
+.chart-container {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 12px;
+
+}
+
+.component-container {
+  _display: contents;
+  flex-wrap: wrap;
+}
+
+@media screen and (min-width: 760px)  {
+  .dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr ;
+    gap: 16px;
+    width: 50%;
+    padding: 1em;
+    _overflow: auto;
+  }
+
+
+  .database-chart-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.4em;
+    width: 50%;
+  }
+}
+
+/* canvas {
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+} */

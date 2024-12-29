@@ -1,0 +1,28 @@
+<section>
+  <mat-toolbar class="filter-bar">
+    <mat-select *ngIf="(splitMetrics$ | async) as metrics" [(ngModel)]="selectedValue">
+      <mat-option *ngFor="let item of objectKeys(metrics); trackBy: trackByFn" [value]="item" (click)="selectedDatabase()">
+        <span>{{ item }}</span>
+      </mat-option>
+    </mat-select>
+    <button mat-icon-button matIconPrefix *ngIf="selectedValue" (click)="cancelDatabaseFilter()" >
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-toolbar>
+</section>
+
+<div *ngIf="loadingCount; else content" class="spinner-container">
+  <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+</div>
+
+<ng-template #content>
+  <div class="dashboard-container">
+    <div class="component-container">
+      <app-database-count></app-database-count>
+    </div>
+    <div class="component-container">
+      <app-database-cache></app-database-cache>
+    </div>
+  </div>
+</ng-template>
+

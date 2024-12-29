@@ -1,0 +1,9 @@
+<ng-container *ngIf="cacheMetric$ | async as metrics">
+  <h3>Cache Metrics</h3>
+  <div class="database-chart-container">
+    <div class="chart-container" *ngFor="let key of objectKeys(metrics)">
+      <app-areachart [key]="key" [labels]="labels"></app-areachart>
+    </div>
+  </div>
+</ng-container>
+
