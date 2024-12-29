@@ -1,0 +1,140 @@
+<div *ngIf="project$ | async as project">
+  <mat-card class="card">
+    <h2 mat-card-title *ngIf="projectId">
+      Modify Project : {{project.projectName}}
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="createTicketButton()">
+          <mat-icon>create</mat-icon>
+          <span>Create new Ticket</span>
+        </button>
+        <button mat-menu-item (click)="deleteProject(project.id)" *ngIf="project.id">
+          <mat-icon>delete</mat-icon>
+          <span>Delete Project</span>
+        </button>
+      </mat-menu>
+    </h2>
+    <h2 mat-card-title *ngIf="!projectId">Create Project</h2>
+    <mat-card-content>
+      <div [formGroup]="projectForm" class="content">
+        <mat-form-field class="form-fields">
+          <mat-label>Project Name</mat-label>
+          <input matInput formControlName="projectName">
+          <button mat-icon-button matIconSuffix
+            *ngIf="projectForm.get('projectName')?.value"
+            (click)="projectForm.get('projectName')?.setValue('')">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field class="form-fields">
+          <mat-label>Customer Name</mat-label>
+          <input matInput formControlName="customerName">
+          <button mat-icon-button matIconSuffix
+            *ngIf="projectForm.get('customerName')?.value"
+            (click)="projectForm.get('customerName')?.setValue('')">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field class="form-fields">
+          <mat-label>Project Description</mat-label>
+          <textarea matInput formControlName="projectDescription" cols="10" rows="12" ></textarea>
+          <button mat-icon-button matIconSuffix
+            *ngIf="projectForm.get('projectDescription')?.value"
+            (click)="projectForm.get('projectDescription')?.setValue('')">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <div class="markdown-field" *ngIf="markdownData.length > 0">
+          <label >Markdown Field</label>
+          <div class="markdown-content">
+            <div class="markdown-text">
+              <markdown [data]="markdownData"></markdown>
+            </div>
+          </div>
+        </div>
+
+        @if (!projectId) {
+          <div class="gemini-field" *ngIf="projectForm.get('projectName')?.value && projectForm.get('customerName')?.value && projectForm.get('projectDescription')?.value">
+            <div class="gemini">
+              <svg class="svg-icon" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                <path d="M16 8.016A8.522 8.522 0 008.016 16h-.032A8.521 8.521 0 000 8.016v-.032A8.521 8.521 0 007.984 0h.032A8.522 8.522 0 0016 7.984v.032z" fill="url(#prefix__paint0_radial_980_20147)"/>
+                <defs>
+                  <radialGradient id="prefix__paint0_radial_980_20147" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(16.1326 5.4553 -43.70045 129.2322 1.588 6.503)">
+                    <stop offset=".067" stop-color="#9168C0"/>
+                    <stop offset=".343" stop-color="#5684D1"/>
+                    <stop offset=".672" stop-color="#1BA1E3"/>
+                  </radialGradient>
+                </defs>
+              </svg>
+              <button class="gemini-btn" (click)="askGemini()">
+                Get Help from Gemini
+              </button>
+            </div>
+          </div>
+        }
+
+        <mat-form-field class="form-fields">
+          <mat-label>Date range</mat-label>
+          <mat-date-range-input [formGroup]="projectForm" [rangePicker]="picker" >
+            <input matInput matStartDate formControlName="projectStartDate" placeholder="Start date">
+            <input matInput matEndDate formControlName="projectEndDate" placeholder="End date">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <mat-form-field class="form-fields">
+          <mat-label>Priority Level</mat-label>
+           <mat-select formControlName="priorityLevel" [compareWith]="compareFn">
+              <mat-option *ngFor="let level of (priorityLevels$ | async)" [value]="level">
+                {{ level.priorityLevel }}
+              </mat-option>
+           </mat-select>
+          <button mat-icon-button matIconSuffix
+            *ngIf="projectForm.get('priorityLevel')?.value"
+            (click)="projectForm.get('priorityLevel')?.setValue(null)">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field class="form-fields">
+          <mat-label>Project Status</mat-label>
+          <mat-select formControlName="projectStatus" [compareWith]="compareFn">
+            @for (item of projectStatus$ | async; track $index) {
+              <mat-option [value]="item">{{item.projectStatus}}</mat-option>
+            }
+           </mat-select>
+          <button mat-icon-button matIconSuffix
+            *ngIf="projectForm.get('projectStatus')?.value"
+            (click)="projectForm.get('projectStatus')?.setValue(null)">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="card-actions" >
+      <button mat-raised-button class="action-btns" *ngIf="projectForm.touched && projectForm.valid" (click)="submit()" [disabled]="projectForm.untouched || !projectForm.valid">
+        @if (project.id) {
+          Edit
+        } @else {
+          Submit
+        }
+      </button>
+      <button mat-flat-button class="action-btns" (click)="cancel()">
+        Cancel
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  @if (editMode) {
+    <mat-card class="card" *ngIf="assinedUsers$ | async as users">
+      <h2 mat-card-title>Users assigned to the Project</h2>
+      <mat-card-content>
+        <div *ngFor="let item of users"> {{item.firstName}} {{item.lastName}} </div>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>
+

@@ -1,0 +1,138 @@
+@use 'styles.scss';
+
+.card {
+  display: flex;
+  justify-content: center;
+  margin: 1.2em;
+
+  h2 {
+    margin: 1em auto;
+  }
+
+  .content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 1em auto;
+  }
+
+  .form-fields {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 75%;
+
+    .mdc-text-field__input {
+      color: rgb(46, 48, 54);
+    }
+
+    .mat-icon {
+      color: rgb(46, 48, 54);
+    }
+  }
+}
+
+.card-actions {
+  margin: 1em;
+  display: flex;
+  justify-content: center;
+
+  .action-btns {
+    margin: auto 1em;
+    padding: 1.4em 2.6em;
+  }
+}
+
+textarea {
+  resize: none;
+}
+
+.card .form-fields .mat-icon {
+  color: rgb(91, 92, 95);
+}
+
+.markdown-field {
+  width: 75%;
+  margin: auto;
+
+}
+
+label {
+  color: white;
+}
+
+.markdown-content {
+  border-radius: 4px;
+  background-color: rgb(133, 182, 255);
+  margin-bottom: 1em;
+
+  .markdown-text {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+}
+
+
+
+.gemini-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.gemini {
+  position: relative;
+  display: inline-flex;
+  justify-items: center;
+  margin-bottom: 2em;
+}
+
+.svg-icon {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+}
+
+
+.gemini-btn {
+  padding: 1em 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7px;
+  background-color: rgba(35, 35, 50, 0.829);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.gemini-btn::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -4px;
+  height: calc(100% + 8px);
+  width: calc(100% + 8px);
+  border-radius: 1000px;
+  background-image: linear-gradient(to bottom right, #008cff, #b700ff);
+  z-index: -1;
+}
+
+.gemini-btn:hover {
+  box-shadow: 30px 0 50px #008cff,
+              -30px 0 50px #b700ff;
+  transform: scale(1.05);
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+
+}
+

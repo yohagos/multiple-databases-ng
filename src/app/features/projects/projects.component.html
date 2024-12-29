@@ -1,0 +1,85 @@
+<div class="container">
+  <section class="leftSection">
+    <div class="scrollable-list">
+      <mat-list *ngIf="projects$ | async as project" role="list">
+        <mat-form-field class="filter no-hint" appearance="outline" >
+          <input matInput [(ngModel)]="filter" placeholder="Search for Projects">
+          <button mat-icon-button matIconSuffix *ngIf="filter" (click)="filter = ''">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <button class="info-btn" mat-icon-button *ngIf="!informationOpened" (click)="openInformation()">
+          <mat-icon>
+            info
+          </mat-icon>
+        </button>
+        <button class="info-btn" mat-icon-button *ngIf="informationOpened" (click)="openInformation()">
+          <mat-icon>
+            close
+          </mat-icon>
+        </button>
+        @if (informationOpened) {
+          <ng-container>
+            <mat-stepper orientation="vertical" class="stepper">
+              <mat-step>
+                <ng-template matStepLabel>Project Status</ng-template>
+                <table mat-table [dataSource]="dataSourceStatus" class="mat-elevation-z6">
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.projectStatus}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="color">
+                    <th mat-header-cell *matHeaderCellDef> Color </th>
+                    <td mat-cell *matCellDef="let element" [ngStyle]="{'background-color': element.statusColor}">  </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsStatus"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsStatus;"
+                    matTooltip="Depending on the Project Status, the Projects will have different colors as underline"></tr>
+                </table>
+
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>Priority Levels</ng-template>
+                <table mat-table [dataSource]="dataSourcePriority" class="mat-elevation-z10">
+                  <ng-container matColumnDef="level">
+                    <th mat-header-cell *matHeaderCellDef> Levels </th>
+                    <td mat-cell *matCellDef="let element"> {{element.priorityLevel}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="color">
+                    <th mat-header-cell *matHeaderCellDef> Color </th>
+                    <td mat-cell *matCellDef="let element" [ngStyle]="{'background-color': element.priorityColor}">  </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsPriority"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsPriority;"
+                    matTooltip="Depending on the Priority Level, the Projects will have different colors on the Left side"></tr>
+                </table>
+
+              </mat-step>
+            </mat-stepper>
+          </ng-container>
+        }
+
+        <ng-container *ngFor="let proj of project.content">
+          <button
+            mat-raised-button
+            class="user-btn"
+            [ngStyle]="{'border-bottom': getStatusColor(proj), 'border-left': getPriorityColor(proj)}"
+            (click)="selectProject(proj)">
+            <span class="btn-title">{{proj.projectName}}</span>
+            <br>
+            <span class="btn-sub-title"> {{proj.customerName}} </span>
+            <br>
+            <span class="btn-sub-title"> {{formatDateService.getFormatedDate(proj.projectStartDate)}} - {{formatDateService.getFormatedDate(proj.projectEndDate)}} </span>
+          </button>
+        </ng-container>
+      </mat-list>
+    </div>
+    <button mat-stroked-button class="user-btn create-btn" (click)="createNewProject()">
+      Create Project
+    </button>
+  </section>
+  <section class="rightSection">
+    <app-manage-project></app-manage-project>
+  </section>
+</div>

@@ -1,0 +1,106 @@
+.container {
+  display: flex;
+  height: 91vh;
+}
+
+.leftSection {
+  flex: 4;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.rightSection {
+  flex: 10;
+  overflow: auto;
+}
+
+.scrollable-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.user-btn {
+  width: 90%;
+  height: auto;
+  border-radius: 10px;
+  margin: auto;
+  padding: 1.6em;
+  background-color: rgba($color: rgba(31, 97, 241, 0.8), $alpha: 0.7) !important;
+  color: white !important;
+}
+
+.info-btn {
+  margin: auto;
+  color: white !important;
+}
+
+.filter {
+  width: 90%;
+  margin: auto;
+
+  &.mat-mdc-form-field input {
+    color: white;
+  }
+}
+
+.create-btn {
+  position: sticky;
+  bottom: 0;
+  margin: auto ;
+  margin-top: 0.7em;
+  background-color: rgba(31, 97, 241, 0.719);
+  color: white;
+  z-index: 10;
+  &.mat-mdc-outlined-button:not(:disabled) {
+    color: white;
+  }
+}
+
+.user-btn:hover {
+  transform: translateY(-3px);
+  transition: transform 0.3s;
+}
+
+.btn-title {
+  font-size: 20px;
+}
+
+.btn-sub-title {
+  font-size: 12px;
+}
+
+.tab-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-mdc-form-field-subscript-wrapper .mat-mdc-form-field-bottom-align {
+  display: none !important;
+}
+.no-hint {
+  margin-bottom: -1.25em;
+}
+
+.mat-mdc-table {
+  background-color: transparent !important;
+  th, td {
+    color: white;
+    line-height: 15px;
+    font-size: 14px;
+  }
+  margin-bottom: 0.5em;
+}
+
+.mat-mdc-row, .mat-mdc-header-row {
+  height: 20px !important;
+}
+
+.stepper {
+  background-color: transparent !important;
+
+  .mat-step-label.mat-step-label-active {
+    color: white !important;
+  }
+}
+
