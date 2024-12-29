@@ -1,0 +1,131 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+// Definiere die Farbpaletten
+$_palettes: (
+  primary: (
+    0: #000000,
+    10: #001f3f,
+    20: #003366,
+    25: #004080,
+    30: #00509e,
+    35: #0066cc,
+    40: #0073e6,
+    50: #0080ff,
+    60: #3399ff,
+    70: #66b3ff,
+    80: #99ccff,
+    90: #cce6ff,
+    95: #e6f2ff,
+    98: #f2faff,
+    99: #f9fcff,
+    100: #ffffff,
+  ),
+  secondary: (
+    0: #000000,
+    10: #4d4d4d,
+    20: #666666,
+    25: #808080,
+    30: #999999,
+    35: #b3b3b3,
+    40: #cccccc,
+    50: #e6e6e6,
+    60: #f2f2f2,
+    70: #ffffff,
+    80: #ffffff,
+    90: #ffffff,
+    95: #ffffff,
+    98: #ffffff,
+    99: #ffffff,
+    100: #ffffff,
+  ),
+  tertiary: (
+    0: #000000,
+    10: #ffccbb,
+    20: #ffb3a1,
+    25: #ff9988,
+    30: #ff7f66,
+    35: #ff6633,
+    40: #ff4d00,
+    50: #ff3300,
+    60: #e62e00,
+    70: #cc2900,
+    80: #b32400,
+    90: #991f00,
+    95: #7f1a00,
+    98: #661500,
+    99: #4c1000,
+    100: #ffffff,
+  ),
+  neutral: (
+    0: #000000,
+    4: #1c1c1c,
+    6: #262626,
+    10: #333333,
+    12: #404040,
+    17: #4d4d4d,
+    20: #595959,
+    22: #666666,
+    24: #737373,
+    25: #808080,
+    30: #999999,
+    35: #a6a6a6,
+    40: #b3b3b3,
+    50: #cccccc,
+    60: #d9d9d9,
+    70: #e6e6e6,
+    80: #f2f2f2,
+    87: #ffffff,
+    90: #ffffff,
+    92: #ffffff,
+    94: #ffffff,
+    95: #ffffff,
+    96: #ffffff,
+    98: #ffffff,
+    99: #ffffff,
+    100: #ffffff,
+  ),
+  error: (
+    0: #000000,
+    10: #9b0000,
+    20: #c70000,
+    25: #d10000,
+    30: #e60000,
+    35: #ff0000,
+    40: #ff1a1a,
+    50: #ff3333,
+    60: #ff4d4d,
+    70: #ff6666,
+    80: #ff8080,
+    90: #ff9999,
+    95: #ffb3b3,
+    98: #ffcccc,
+    99: #ffe6e6,
+    100: #ffffff,
+  ),
+);
+
+$_rest: (
+  secondary: map.get($_palettes, secondary),
+  //neutral: map.get($_palettes, neutral),
+  error: map.get($_palettes, error),
+);
+$primary: map.merge(map.get($_palettes, primary), $_rest);
+$tertiary: map.merge(map.get($_palettes, tertiary), $_rest);
+$neutral: map.merge(map.get($_palettes, neutral), $_rest);
+
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+  ),
+  typography: (
+    brand-family: 'Comic Sans',
+    bold-weight: 900,
+  )
+));
+
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+  ),
+));

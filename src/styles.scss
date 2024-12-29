@@ -1,1 +1,218 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '@angular/cdk' as cdk;
+
+
+@use 'm3-theme';
+@import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
+
+:root {
+  --mdc-outlined-text-field-input-text-placeholder-color: white;
+}
+
+html {
+  @include mat.card-theme(m3-theme.$light-theme);
+  @include mat.select-theme(m3-theme.$light-theme);
+  @include mat.icon-theme(m3-theme.$light-theme);
+  @include mat.stepper-theme(m3-theme.$light-theme);
+  @include cdk.overlay();
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    @include mat.all-component-themes(m3-theme.$dark-theme)
+  }
+}
+
+
+html, body {  height: 100%; font-family: sans-serif; }
+body {
+  margin: 0;
+  background-color: rgba($color: map.get(m3-theme.$neutral, 4), $alpha: 0.95);
+}
+
+:root {
+  --mdc-outlined-text-field-input-text-placeholder-color: white;
+
+  @include mat.stepper-overrides((
+    header-icon-foreground-color: rgba($color: map.get(m3-theme.$neutral, 4), $alpha: 0.95),
+    header-icon-background-color: white,
+    header-label-text-color: white,
+    header-optional-label-text-color: white,
+    header-selected-state-label-text-color: white,
+  ));
+
+  @include mat.dialog-overrides((
+    container-color: rgb(50, 86, 153),
+    subhead-color: white,
+  ));
+
+  @include mat.divider-overrides((
+    color: white,
+  ));
+}
+
+h1, h2, h3, h4 {
+  color: white;
+}
+
+.spinner-container {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  height: 85vh;
+  color: map.get(m3-theme.$primary, 40);
+}
+
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 100;
+}
+
+mat-icon {
+  color: white;
+}
+
+.mat-mdc-form-field input {
+  color: rgba($color: map.get(m3-theme.$neutral, 4), $alpha: 0.95);
+}
+
+.mat-mdc-form-field textarea {
+  color: rgba($color: map.get(m3-theme.$neutral, 4), $alpha: 0.95);
+}
+
+mat-toolbar {
+  background-color: map.get(m3-theme.$primary, 30);
+
+  &.filter-bar {
+    background-color: map.get(m3-theme.$primary, 50);
+  }
+}
+
+mat-card {
+  &.mdc-card {
+    background-color: rgba($color: map.get(m3-theme.$primary, 50), $alpha: 0.35);
+    border: none;
+    color: white;
+  }
+}
+
+.mat-mdc-raised-button {
+  background-color: map.get(m3-theme.$primary, 40) ;
+  color: white;
+}
+
+.mat-mdc-button {
+  background-color: map.get(m3-theme.$primary, 40) ;
+  color: white;
+}
+
+.mat-mdc-flat-button {
+  background-color: map.get(m3-theme.$primary, 40) ;
+  color: white;
+}
+
+mat-accordion {
+  .mat-expansion-panel {
+    background-color: rgba($color: map.get(m3-theme.$primary, 70), $alpha: 0.6);
+  }
+}
+
+.mat-mdc-text-field-wrapper {
+  border: 1px solid rgba($color: map.get(m3-theme.$neutral, 30), $alpha: 1.0);
+}
+
+.mat-mdc-calender {
+  width: auto;
+  max-width: 30em;
+}
+
+.mat-mdc-calender-table {
+  table-layout: fixed;
+}
+
+.mat-mdc-calendar-table td {
+  padding: 0;
+  height: 48px;
+  width: 48px;
+}
+
+.mat-mdc-calendar-body-cell-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.mat-mdc-calendar-table-header th {
+  padding: 0 4px;
+  font-size: 12px;
+}
+
+.mat-mdc-date-range-picker {
+  min-width: 20em;
+}
+
+.mdc-text-field .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: rgba($color: map.get(m3-theme.$neutral, 12), $alpha: 1.0);
+}
+
+mat-list {
+  &.mat-mdc-list-base {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+  }
+}
+
+.dialog-container {
+  background-color: rgba($color: map.get(m3-theme.$primary, 30), $alpha: 0.6);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-corner {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2pt solid transparent;
+  border-radius: 3pt;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, .2);
+  border: 3pt solid transparent;
+  background-clip: content-box;
+}
+
+.custom-scroll-vertical-hover::-webkit-scrollbar-thumb:vertical {
+  background: rgba(255, 255, 255, .4);
+  border: none;
+  border-radius: 0;
+}
+
+.custom-scroll-vertical-hover::-webkit-scrollbar-track:vertical {
+  background: rgba(255, 255, 255, .2);
+  border: none;
+}
+
+::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 1;
+}
+
+:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
