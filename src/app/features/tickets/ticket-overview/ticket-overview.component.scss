@@ -1,0 +1,134 @@
+.container {
+  margin: auto;
+  margin-top: 1.3em;
+  width: 90%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  margin: 1em;
+
+  h2 {
+    margin: 1em auto;
+  }
+
+  mat-divider {
+    margin: auto;
+    width: 83% !important;
+  }
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+  .item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin: 1em;
+  }
+  .description {
+    flex: 1;
+    padding-right: 16px;
+  }
+  .info {
+    flex: 1;
+  }
+}
+
+.comment-btns {
+  margin: 1em;
+  display: flex;
+  justify-content: end;
+  button {
+    margin: 0.5em;
+  }
+}
+
+.markdown-container {
+  width: 90%;
+  margin: 1em;
+
+  .textarea {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px white;
+    resize: none;
+    padding: 8px;
+    width: 43%;
+  }
+
+  .textarea:hover {
+    box-shadow: 0 3px 3px 1px white,
+      0 2px 3px 1px white;
+  }
+
+  .textarea:focus {
+    border: none;
+  }
+
+  .variable-binding {
+    width: 43%;
+    float: right;
+    display: block;
+  }
+}
+
+.ticket-description {
+  margin: 2em auto;
+  max-width: 70%;
+}
+
+.comments-section {
+  flex-grow: 1;
+  height: auto;
+  margin: 1em;
+}
+
+.comments-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.comments {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  margin: 1em auto;
+
+  .comments-comment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+  }
+}
+
+.comment-header {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 10px;
+  left: 10px;
+  margin: 0;
+
+  h3 {
+    margin-top: 0.5em;
+    margin-bottom: 0.1em;
+  }
+  p {
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
+  }
+}
+
+.cancel-btn {
+  color: white;
+}
+

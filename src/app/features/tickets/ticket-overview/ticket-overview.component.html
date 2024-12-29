@@ -1,0 +1,109 @@
+<div class="container" *ngIf="ticket$ | async as ticket">
+  <mat-card class="card-container">
+    <mat-card-header>
+      <h2>Overview : {{ticket.ticketName}}</h2>
+      <button class="menu" mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="deleteTicket(ticket.id)" *ngIf="ticket.id">
+          <mat-icon>delete</mat-icon>
+          <span>Delete Ticket</span>
+        </button>
+      </mat-menu>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div class="content-container">
+        <div class="item">
+          <div class="description">
+            Ticket Status
+          </div>
+          <div class="info">
+            {{ticket.ticketStatus?.status}}
+          </div>
+        </div>
+        <div class="item">
+          <div class="description">
+            Ticket Type
+          </div>
+          <div class="info">
+            {{ticket.ticketType?.ticketType}}
+          </div>
+        </div>
+        <div class="item">
+          <div class="description">
+            Due Date
+          </div>
+          <div class="info">
+            {{ formatingDateService.getFormatedDate(ticket.dueDate) }}
+          </div>
+        </div>
+        <div class="item">
+          <div class="description">
+            Priority Level
+          </div>
+          <div class="info">
+            {{ticket.priorityLevel?.priorityLevel}}
+          </div>
+        </div>
+        <div class="item" *ngIf="createdByUser$ | async as user">
+          <div class="description">
+            Created By / Date
+          </div>
+          <div class="info">
+            {{user.firstName}} {{user.lastName}} / {{formatingDateService.getFormatedDate(ticket.createdDate)}}
+          </div>
+        </div>
+        <div class="ticket-description">
+          <markdown [data]="ticket.ticketDescription"></markdown>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="comments-section" *ngIf="comments$ | async as comments">
+    <div class="comments-container" *ngIf="comments.length > 0">
+      <mat-card class="comments" *ngFor="let com of comments">
+        <div class="comment-header">
+          <h3> {{com.author?.firstName}} {{com.author?.lastName}} </h3>
+          <p> {{formatingDateService.getFormatedDate(com.createdDate, true)}} </p>
+        </div>
+        <mat-card-content>
+          <div class="comments-comment">
+            <markdown [data]="com.content"></markdown>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card>
+
+  <mat-card class="comments-section" >
+    <div class="comment-btns">
+      <button mat-flat-button *ngIf="!writingComment" (click)="writingComment = !writingComment">
+        Add a Comment
+      </button>
+      <button mat-button class="cancel-btn" *ngIf="writingComment" (click)="markdown=''; writingComment = !writingComment">
+        Cancel
+      </button>
+      <button mat-flat-button *ngIf="writingComment && markdown.length > 0" (click)="createTicket()">
+        Submmit
+      </button>
+    </div>
+
+    <div class="markdown-container" *ngIf="writingComment">
+
+      <textarea class="textarea" [(ngModel)]="markdown" rows="15">
+
+      </textarea>
+      <markdown class="variable-binding" [data]="markdown">
+
+      </markdown>
+    </div>
+
+  </mat-card>
+</div>
